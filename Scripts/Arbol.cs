@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Arbol
@@ -84,4 +85,104 @@ Temp = 11
         return null;
     }
 
+    //private void PrintTree(Queue q1)
+    //{
+    //    string treeText = " ";
+    //    NodoArbol tree = adam;
+    //   // NodoArbol temp = null;
+    //    while(tree != null)
+    //    {
+    //        if(tree.left.dato < tree.dato)
+    //        {
+    //            tree = tree.left;
+    //        }
+    //        else
+    //        {
+    //            tree = tree.right;
+    //        }
+    //        /*if(tree.right.dato < tree.dato)
+    //        {
+    //            tree = tree.right;
+    //        }*/
+            
+    //    }
+       
+    //}
+    private void PrintOne(NodoArbol tree, StringBuilder T)
+    {
+        
+        if(tree!= null)
+        {
+           // Debug.Log(tree.dato);
+            T.Append($",{tree.dato}");
+            PrintOne(tree.left, T);
+            PrintOne(tree.right, T);
+
+        }
+       
+    }
+    public void PrintOne()
+    {
+        StringBuilder builder = new StringBuilder("Los valores del arbol en el orden de raiz son: ");
+        PrintOne(adam, builder);
+        Debug.Log(builder.ToString() );
+    }
+     private void PrintTwo(NodoArbol tree, StringBuilder T)
+    {
+        
+        if(tree!= null)
+        {
+           // Debug.Log(tree.dato);
+            PrintTwo(tree.left, T);
+            T.Append($",{tree.dato}");
+            PrintTwo(tree.right, T);
+
+        }
+       
+    }
+    public void PrintTwo()
+    {
+        StringBuilder builder = new StringBuilder("Los valores del arbol de menor a mayor: ");
+        PrintTwo(adam, builder);
+        Debug.Log(builder.ToString() );
+    }
+    private void PrintThree(NodoArbol tree, StringBuilder T)
+    {
+
+        if (tree != null)
+        {
+            // Debug.Log(tree.dato);
+            PrintThree(tree.left, T);
+            PrintThree(tree.right, T);
+            T.Append($",{tree.dato}");
+
+        }
+
+    }
+    public void PrintThree()
+    {
+        StringBuilder builder = new StringBuilder("No se que orden llevan :v pero pues aqui estan : ");
+        PrintThree(adam, builder);
+        Debug.Log(builder.ToString());
+    }
+    private void PrintFour(NodoArbol tree, StringBuilder T)
+    {
+
+        if (tree != null)
+        {
+            // Debug.Log(tree.dato);
+            PrintFour(tree.right, T);
+            T.Append($",{tree.dato}");
+            PrintFour(tree.left, T);
+           
+
+        }
+
+    }
+    public void PrintFour()
+    {
+        StringBuilder builder = new StringBuilder("Los valores del arbol de mayor a menor: ");
+        PrintFour(adam, builder);
+        Debug.Log(builder.ToString());
+    }
 }
