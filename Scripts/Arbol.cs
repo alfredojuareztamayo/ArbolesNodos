@@ -84,28 +84,34 @@ Temp = 11
         Debug.Log("No existe dicho valor en el arbol");
         return null;
     }
-    public NodoArbol FindParent(int num)
+     NodoArbol FindParent(int num)
     {
         // NodoArbol temp = null;
         NodoArbol actual = adam;
+        
         while (actual != null)
         {
-            if (num == actual.left.dato || num == actual.right.dato)
-            {
-                Debug.Log(actual.dato);
-                return actual;
-            }
-                if (num > actual.left.dato)
+            Debug.Log(actual.left.dato + "valor de la izquierda," + actual.right.dato + "valor de la derecha" + "  " + num + " El valor a buscar");
+           // if (actual.left != null || actual.right != null)
+           //{
+                if (num == actual.left.dato || num == actual.right.dato)
                 {
-                
+                    Debug.Log(actual.dato);
+                    return actual;
+                }
+                if (num > actual.dato)
+                {
+
                     actual = actual.right;
                 }
                 else
                 {
-               
+
                     actual = actual.left;
                 }
+           // }
         }
+           
         Debug.Log("No existe dicho valor en el arbol");
         return null;
     }
@@ -188,13 +194,23 @@ Temp = 11
         Debug.Log(builder.ToString());
     }
 
-    public void DeleteArbol(int num)
+    NodoArbol FindMinValue(NodoArbol tree)
     {
-        NodoArbol parent = FindParent(num);
+        while (tree.left != null)
+        {
+            tree = tree.left;
+        }
+       // Debug.Log(tree.dato);
+        return tree;
+    }
+    private void DeleteArbolR(int num)
+    {
+        NodoArbol parent = FindParent(num); // solo pasar 1 vez por el arbol
         NodoArbol child = Find(num);
 
-        if(child.left == null && child.right == null)
+        if(child.left == null && child.right == null) //caso sin ninguna hoja
         {
+            Debug.Log("Entre en el primer caso");
             if (parent.right == child)
             {
                 parent.SetRight(null);
@@ -203,61 +219,48 @@ Temp = 11
             {
                 parent.SetLeft(null);
             }
+            return;
         }
-        if (child.left == null || child.right == null)
+        if (child.left == null) //caso con 1 hoja
         {
-            if(child.left == null)
-            {
-                parent.SetRight(child.right);
-            }
-            else
-            {
-                parent.SetLeft(child.right);
-            }
+            Debug.Log("Entre en el segundo caso");
+            parent.SetRight(child.right);
+            return;
         }
-        if (child.left != null && child.right != null)
+        if (child.right == null) //caso con 1 hoja
         {
-            NodoArbol temp = child;
-            if (parent.right == child)
-            {
-                while (temp.left != null)
-                {
-                    if (temp.right.left != null && temp.right.right != null)
-                    {
-                        temp = temp.right;
-                        continue;
-                    }
-                    if (temp.right == null)
-                    {
-                        temp = temp.left;
-                        continue;
-                    }
-                    temp = temp.left;
-                }
-            temp.SetLeft(child.left);
-            temp.SetRight(child.right);
-            parent.SetRight(temp);
-            }
-            if (parent.left == child)
-            {
-                while (temp.right != null)
-                {
-                    if (temp.right.left != null && temp.right.right != null)
-                    {
-                        temp = temp.right;
-                        continue;
-                    }
-                    if (temp.right == null)
-                    {
-                        temp = temp.left;
-                        continue;
-                    }
-                    temp = temp.left;
-                }
-                temp.SetLeft(child.left);
-                temp.SetRight(child.right);
-                parent.SetRight(temp);
-            }
+            Debug.Log("Entre en el segundo caso");
+            parent.SetLeft(child.right);
+            return;
         }
+        Debug.Log("Entre en el tercer caso");
+        // Forma recursiva pero solo valido para un valor del nodo
+        {
+            //NodoArbol temp = FindMinValue(child.right);
+            // int valueTemp = temp.dato;
+            // Debug.Log("El valor a promover es: " + valueTemp);
+
+            //DeleteArbolR(valueTemp);
+            //child.SetDato(valueTemp);
+        }
+
+        NodoArbol temp = FindMinValue(child.right);
+        temp.SetLeft(child.left);
+        temp.SetRight(child.right);
+        if (parent.right == child)
+        {
+            parent.SetRight(child);
+        }
+        else
+        {
+           parent.SetLeft(child);
+           
+        }
+
+    }
+
+    public void DeleteArbol(int num)
+    {
+        DeleteArbolR(num);
     }
 }
