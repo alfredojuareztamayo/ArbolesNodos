@@ -91,14 +91,30 @@ Temp = 11
         
         while (actual != null)
         {
-            Debug.Log(actual.left.dato + "valor de la izquierda," + actual.right.dato + "valor de la derecha" + "  " + num + " El valor a buscar");
-           // if (actual.left != null || actual.right != null)
-           //{
-                if (num == actual.left.dato || num == actual.right.dato)
+            // Debug.Log(actual.left.dato + "valor de la izquierda," + actual.right.dato + "valor de la derecha" + "  " + num + " El valor a buscar");
+            // if (actual.left != null || actual.right != null)
+            //{
+            if (actual.left != null)
+            {
+                if (num == actual.left.dato)
+                {
+                    Debug.Log(actual.dato);
+                     return actual;
+                }
+
+            }
+            if(actual.right != null){
+                if (num == actual.right.dato)
                 {
                     Debug.Log(actual.dato);
                     return actual;
                 }
+            }
+                //if (num == actual.left.dato || num == actual.right.dato)
+                //{
+                //    Debug.Log(actual.dato);
+                //    return actual;
+                //}
                 if (num > actual.dato)
                 {
 
@@ -127,6 +143,11 @@ Temp = 11
             PrintOne(tree.right, T);
 
         }
+        //while(tree != null)
+        //{
+        //    T.Append($",{tree.dato}");
+
+        //}
        
     }
     public void PrintOne()
@@ -200,37 +221,62 @@ Temp = 11
         {
             tree = tree.left;
         }
-       // Debug.Log(tree.dato);
+       Debug.Log(tree.dato);
         return tree;
     }
-    private void DeleteArbolR(int num)
+    public void DeleteArbol(int num)
     {
-        NodoArbol parent = FindParent(num); // solo pasar 1 vez por el arbol
         NodoArbol child = Find(num);
+        NodoArbol parent = FindParent(num); // solo pasar 1 vez por el arbol
 
-        if(child.left == null && child.right == null) //caso sin ninguna hoja
+
+        if (child.left == null && child.right == null) //caso sin ninguna hoja
         {
             Debug.Log("Entre en el primer caso");
-            if (parent.right == child)
+            if (child != adam)
             {
-                parent.SetRight(null);
+                if (parent.right == child)
+                {
+                    parent.SetRight(null);
+                }
+                else
+                {
+                    parent.SetLeft(null);
+                }
             }
             else
             {
-                parent.SetLeft(null);
+                adam = null;
             }
+
             return;
         }
         if (child.left == null) //caso con 1 hoja
         {
-            Debug.Log("Entre en el segundo caso");
-            parent.SetRight(child.right);
+            if (child != adam)
+            {
+                Debug.Log("Entre en el segundo caso");
+                parent.SetRight(child.right);
+                return;
+            }
+            else
+            {
+                adam = child;
+            }
             return;
         }
         if (child.right == null) //caso con 1 hoja
         {
-            Debug.Log("Entre en el segundo caso");
-            parent.SetLeft(child.right);
+            if (child != adam)
+            {
+                Debug.Log("Entre en el segundo caso");
+                parent.SetLeft(child.right);
+            }
+            else
+            {
+                adam = child;
+            }
+
             return;
         }
         Debug.Log("Entre en el tercer caso");
@@ -246,21 +292,34 @@ Temp = 11
 
         NodoArbol temp = FindMinValue(child.right);
         temp.SetLeft(child.left);
+        Debug.Log("valor de la izq nueva hoja" + temp.left.dato);
         temp.SetRight(child.right);
-        if (parent.right == child)
+        Debug.Log("valor de la derecha nueva hoja" + temp.right.dato);
+
+        if (child != adam)
         {
-            parent.SetRight(child);
+            if (parent.right == child)
+            {
+                parent.SetRight(temp);
+                Debug.Log("valor de la der nueva padre" + parent.right.dato);
+               
+
+            }
+            else
+            {
+                parent.SetLeft(temp);
+                Debug.Log("valor de la izq nueva padre" + parent.left.dato);
+            }
+
+            return;
         }
         else
         {
-           parent.SetLeft(child);
-           
+            adam = temp;
         }
 
     }
 
-    public void DeleteArbol(int num)
-    {
-        DeleteArbolR(num);
-    }
-}
+ }
+   
+
