@@ -293,16 +293,14 @@ Temp = 11
 
         NodoArbol temp = FindMinValue(child.right);
         NodoArbol tempParent = FindParent(temp.dato);
-        temp.SetLeft(child.left);
-        Debug.Log("valor de la izq nueva hoja" + temp.left.dato);
-        temp.SetRight(child.right);
-        Debug.Log("valor de la derecha nueva hoja" + temp.right.dato);
-        tempParent.SetLeft(null);
+       
+       
 
         if (child != adam)
         {
             if (parent.right == child)
             {
+                tempParent.SetLeft(null);
                 parent.SetRight(temp);
                 Debug.Log("valor de la der nueva padre" + parent.right.dato);
 
@@ -310,9 +308,16 @@ Temp = 11
             }
             else
             {
+                tempParent.SetRight(null);
                 parent.SetLeft(temp);
                 Debug.Log("valor de la izq nueva padre" + parent.left.dato);
             }
+
+            temp.SetLeft(child.left);
+            //Debug.Log("valor de la izq nueva hoja" + temp.left.dato);
+            temp.SetRight(child.right);
+            // Debug.Log("valor de la derecha nueva hoja" + temp.right.dato);
+
 
             return;
         }
