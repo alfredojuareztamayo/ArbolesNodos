@@ -84,11 +84,11 @@ Temp = 11
         Debug.Log("No existe dicho valor en el arbol");
         return null;
     }
-     NodoArbol FindParent(int num)
+    NodoArbol FindParent(int num)
     {
         // NodoArbol temp = null;
         NodoArbol actual = adam;
-        
+
         while (actual != null)
         {
             // Debug.Log(actual.left.dato + "valor de la izquierda," + actual.right.dato + "valor de la derecha" + "  " + num + " El valor a buscar");
@@ -99,45 +99,46 @@ Temp = 11
                 if (num == actual.left.dato)
                 {
                     Debug.Log(actual.dato);
-                     return actual;
+                    return actual;
                 }
 
             }
-            if(actual.right != null){
+            if (actual.right != null)
+            {
                 if (num == actual.right.dato)
                 {
                     Debug.Log(actual.dato);
                     return actual;
                 }
             }
-                //if (num == actual.left.dato || num == actual.right.dato)
-                //{
-                //    Debug.Log(actual.dato);
-                //    return actual;
-                //}
-                if (num > actual.dato)
-                {
+            //if (num == actual.left.dato || num == actual.right.dato)
+            //{
+            //    Debug.Log(actual.dato);
+            //    return actual;
+            //}
+            if (num > actual.dato)
+            {
 
-                    actual = actual.right;
-                }
-                else
-                {
+                actual = actual.right;
+            }
+            else
+            {
 
-                    actual = actual.left;
-                }
-           // }
+                actual = actual.left;
+            }
+            // }
         }
-           
+
         Debug.Log("No existe dicho valor en el arbol");
         return null;
     }
-    
+
     private void PrintOne(NodoArbol tree, StringBuilder T)
     {
-        
-        if(tree!= null)
+
+        if (tree != null)
         {
-           // Debug.Log(tree.dato);
+            // Debug.Log(tree.dato);
             T.Append($",{tree.dato}");
             PrintOne(tree.left, T);
             PrintOne(tree.right, T);
@@ -148,32 +149,32 @@ Temp = 11
         //    T.Append($",{tree.dato}");
 
         //}
-       
+
     }
     public void PrintOne()
     {
         StringBuilder builder = new StringBuilder("Los valores del arbol en el orden de raiz son: ");
         PrintOne(adam, builder);
-        Debug.Log(builder.ToString() );
+        Debug.Log(builder.ToString());
     }
-     private void PrintTwo(NodoArbol tree, StringBuilder T)
+    private void PrintTwo(NodoArbol tree, StringBuilder T)
     {
-        
-        if(tree!= null)
+
+        if (tree != null)
         {
-           // Debug.Log(tree.dato);
+            // Debug.Log(tree.dato);
             PrintTwo(tree.left, T);
             T.Append($",{tree.dato}");
             PrintTwo(tree.right, T);
 
         }
-       
+
     }
     public void PrintTwo()
     {
         StringBuilder builder = new StringBuilder("Los valores del arbol de menor a mayor: ");
         PrintTwo(adam, builder);
-        Debug.Log(builder.ToString() );
+        Debug.Log(builder.ToString());
     }
     private void PrintThree(NodoArbol tree, StringBuilder T)
     {
@@ -203,7 +204,7 @@ Temp = 11
             PrintFour(tree.right, T);
             T.Append($",{tree.dato}");
             PrintFour(tree.left, T);
-           
+
 
         }
 
@@ -221,7 +222,7 @@ Temp = 11
         {
             tree = tree.left;
         }
-       Debug.Log(tree.dato);
+        Debug.Log(tree.dato);
         return tree;
     }
     public void DeleteArbol(int num)
@@ -291,10 +292,12 @@ Temp = 11
         }
 
         NodoArbol temp = FindMinValue(child.right);
+        NodoArbol tempParent = FindParent(temp.dato);
         temp.SetLeft(child.left);
         Debug.Log("valor de la izq nueva hoja" + temp.left.dato);
         temp.SetRight(child.right);
         Debug.Log("valor de la derecha nueva hoja" + temp.right.dato);
+        tempParent.SetLeft(null);
 
         if (child != adam)
         {
@@ -302,7 +305,7 @@ Temp = 11
             {
                 parent.SetRight(temp);
                 Debug.Log("valor de la der nueva padre" + parent.right.dato);
-               
+
 
             }
             else
@@ -320,6 +323,4 @@ Temp = 11
 
     }
 
- }
-   
-
+}

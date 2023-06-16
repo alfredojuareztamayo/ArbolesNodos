@@ -22,8 +22,8 @@ public class Mannager : MonoBehaviour
         arbolito.PrintTwo();
         arbolito.PrintThree();
         arbolito.PrintFour();
-        arbolito.DeleteArbol(10);
-       arbolito.PrintOne();
+        arbolito.DeleteArbol(9);
+        arbolito.PrintOne();
     }
 
     // Update is called once per frame
